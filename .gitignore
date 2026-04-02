@@ -1,0 +1,7 @@
+backend/target/
+backend/.mvn/
+
+#front
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
