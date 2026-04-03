@@ -56,6 +56,10 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "frontend:build:development",
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "frontend:build:production"
@@ -87,5 +91,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "7a756ccb-7f9a-44e5-a868-847b41613caf"
   }
 }
