@@ -17,12 +17,20 @@ public class UserService {
 
     public String register(RegisterRequestDto req) {
         if (userRepository.findByEmail(req.getEmail()).isPresent()) {
-            throw new RuntimeException("email already taken");
+            throw new RuntimeException("Email already taken");
         }
+
         User user = new User();
         user.setUsername(req.getUsername());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
-        user.setRole(Role.USER);
+
+  // fist one is admin and enyone else i normal user
+        if (userRepository.count() == 0) {
+            user.setRole(Role.ADMIN);
+        } else {
+            user.setRole(Role.USER);
+        }
+
         userRepository.save(user);
         return "user registered successfully";
     }
