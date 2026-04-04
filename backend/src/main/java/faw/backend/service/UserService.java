@@ -1,10 +1,15 @@
 package faw.backend.service;
 
+import faw.backend.dto.request.LoginRequest;
 import faw.backend.dto.request.RegisterRequestDto;
+import faw.backend.dto.response.LoginResponse;
 import faw.backend.entity.User;
 import faw.backend.enums.Role;
 import faw.backend.repository.UserRepository;
+import faw.backend.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +18,8 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+    private final AuthenticationManager authenticationManager;
 
 
     public String register(RegisterRequestDto req) {
@@ -22,6 +29,7 @@ public class UserService {
 
         User user = new User();
         user.setUsername(req.getUsername());
+        user.setEmail(req.getEmail());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
 
   // fist one is admin and enyone else i normal user
@@ -33,5 +41,14 @@ public class UserService {
 
         userRepository.save(user);
         return "user registered successfully";
+    }
+
+    public LoginResponse login(LoginRequest request) {
+        authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(()-> new RuntimeException("User not found"));
+        var jwtToken = jwtUtil.generateToken(user);
+        return LoginResponse.builder().token(jwtToken).build();
+
     }
 }

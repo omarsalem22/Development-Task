@@ -1,6 +1,8 @@
 package faw.backend.controller;
 
+import faw.backend.dto.request.LoginRequest;
 import faw.backend.dto.request.RegisterRequestDto;
+import faw.backend.dto.response.LoginResponse;
 import faw.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,4 +20,10 @@ public class AuthController {
     @PostMapping("register")
     public ResponseEntity<String> register(@RequestBody RegisterRequestDto request){
         return ResponseEntity.ok(userService.register(request));   }
+
+    @PostMapping("login")
+
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginRequest request){
+        return ResponseEntity.ok(userService.login(request));
+    }
 }
