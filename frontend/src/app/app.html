@@ -1,15 +1,1 @@
-<div style="text-align: center; margin-top: 50px; font-family: Arial">
-  <h1>Fullstack Test</h1>
-
-  <p><strong>Message from Backend:</strong></p>
-  <h2 style="color: green">{{ message }}</h2>
-
-  <br /><br />
-
-  <input [(ngModel)]="name" placeholder="Enter your name" style="padding: 8px; font-size: 16px" />
-  <button (click)="callWithName()" style="padding: 8px 16px; margin-left: 10px">
-    Send Name to Backend
-  </button>
-
-  <p style="margin-top: 30px; color: gray">If you see a message → Frontend ↔ Backend is working!</p>
-</div>
+<router-outlet />

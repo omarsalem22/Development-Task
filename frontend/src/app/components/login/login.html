@@ -1,0 +1,35 @@
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1>Sign in</h1>
+    <p class="sub">Welcome back to Travel Planner</p>
+
+    <div class="error" *ngIf="error">{{ error }}</div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="email" />
+      <span class="err-msg" *ngIf="email.invalid && email.touched"> Enter a valid email </span>
+
+      <label>Password</label>
+      <div class="pw-wrap">
+        <input
+          [type]="showPass ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="password"
+        />
+        <button type="button" (click)="showPass = !showPass">
+          {{ showPass ? 'Hide' : 'Show' }}
+        </button>
+      </div>
+      <span class="err-msg" *ngIf="password.invalid && password.touched">
+        Password must be at least 6 characters
+      </span>
+
+      <button type="submit" class="btn" [disabled]="form.invalid || loading">
+        {{ loading ? 'Signing in...' : 'Sign in' }}
+      </button>
+    </form>
+
+    <p class="footer">No account? <a routerLink="/register">Register</a></p>
+  </div>
+</div>

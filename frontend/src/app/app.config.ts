@@ -1,13 +1,15 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http'; // ← This is what was missing
+import { provideRouter, Routes } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http'; 
 import { importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { routes } from './app.routes';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter([]), // add your routes here later if needed
-    provideHttpClient(), // ← THIS LINE IS REQUIRED
+    provideRouter(routes), 
+    provideHttpClient(), 
     importProvidersFrom(FormsModule),
   ],
 };
