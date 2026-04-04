@@ -1,0 +1,109 @@
+<div class="admin-wrap">
+  <header class="admin-header">
+    <h1>Admin dashboard</h1>
+    <span class="badge">Travel Planner</span>
+  </header>
+
+  <!-- success message -->
+  <div class="success-banner" *ngIf="successMsg">{{ successMsg }}</div>
+
+  <!-- ── SECTION 1: fetch from API ── -->
+  <section class="card">
+    <div class="card-header">
+      <h2>Fetch from REST Countries</h2>
+      <div class="actions">
+        <button class="btn-outline" (click)="fetchFromApi()" [disabled]="loadingFetch">
+          {{ loadingFetch ? 'Fetching...' : 'Fetch countries' }}
+        </button>
+        <button
+          class="btn-primary"
+          *ngIf="apiCountries.length"
+          (click)="bulkAdd()"
+          [disabled]="selectedCount === 0 || loadingBulk"
+        >
+          {{ loadingBulk ? 'Adding...' : 'Add selected (' + selectedCount + ')' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="error-banner" *ngIf="fetchError">{{ fetchError }}</div>
+
+    <div class="table-wrap" *ngIf="apiCountries.length">
+      <div class="select-bar">
+        <button class="link-btn" (click)="selectAll()">Select all</button>
+        <button class="link-btn" (click)="clearSelection()">Clear</button>
+        <span>{{ selectedCount }} selected</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Flag</th>
+            <th>Country</th>
+            <th>Capital</th>
+            <th>Region</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of apiCountries; let i = index" [class.selected-row]="isSelected(i)">
+            <td>
+              <input type="checkbox" [checked]="isSelected(i)" (change)="toggleSelect(i)" />
+            </td>
+            <td>
+              <img [src]="c.flags?.png" [alt]="c.name.common" class="flag-img" loading="lazy" />
+            </td>
+            <td>{{ c.name.common }}</td>
+            <td>{{ c.capital?.[0] ?? '—' }}</td>
+            <td>{{ c.region }}</td>
+            <td>
+              <button class="btn-sm" (click)="addOne(c)">Add</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── SECTION 2: saved destinations ── -->
+  <section class="card">
+    <div class="card-header">
+      <h2>Saved destinations</h2>
+      <span class="count-badge">{{ savedDestinations.length }}</span>
+    </div>
+
+    <p class="empty" *ngIf="!loadingSaved && savedDestinations.length === 0">
+      No destinations added yet
+    </p>
+
+    <div class="table-wrap" *ngIf="savedDestinations.length">
+      <table>
+        <thead>
+          <tr>
+            <th>Flag</th>
+            <th>Country</th>
+            <th>Capital</th>
+            <th>Region</th>
+            <th>Currency</th>
+            <th>Population</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of savedDestinations">
+            <td><img [src]="d.flagUrl" [alt]="d.name" class="flag-img" loading="lazy" /></td>
+            <td>{{ d.name }}</td>
+            <td>{{ d.capital }}</td>
+            <td>{{ d.region }}</td>
+            <td>{{ d.currency }}</td>
+            <td>{{ d.population | number }}</td>
+            <td>
+              <button class="btn-danger-sm" (click)="remove(d.id)">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

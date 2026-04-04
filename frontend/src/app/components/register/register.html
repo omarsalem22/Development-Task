@@ -13,12 +13,10 @@
           id="username"
           type="text"
           formControlName="username"
-          placeholder="at least 3 characters"
+          placeholder="username"
           autocomplete="username"
         />
-        <span class="err-msg" *ngIf="username.invalid && username.touched">
-          Username must be at least 3 characters
-        </span>
+        <span class="err-msg" *ngIf="username.invalid && username.touched"> </span>
       </div>
 
       <!-- email -->
@@ -28,12 +26,10 @@
           id="email"
           type="email"
           formControlName="email"
-          placeholder="your@email.com"
+          placeholder="email"
           autocomplete="email"
         />
-        <span class="err-msg" *ngIf="email.invalid && email.touched">
-          Enter a valid email address
-        </span>
+        <span class="err-msg" *ngIf="email.invalid && email.touched"> </span>
       </div>
 
       <!-- password -->
@@ -44,16 +40,14 @@
             id="password"
             [type]="showPass ? 'text' : 'password'"
             formControlName="password"
-            placeholder="min 6 characters"
+            placeholder="password"
             autocomplete="new-password"
           />
           <button type="button" class="toggle-btn" (click)="showPass = !showPass">
             {{ showPass ? 'Hide' : 'Show' }}
           </button>
         </div>
-        <span class="err-msg" *ngIf="password.invalid && password.touched">
-          Password must be at least 6 characters
-        </span>
+        <span class="err-msg" *ngIf="password.invalid && password.touched"> </span>
       </div>
 
       <!-- confirm password -->
@@ -70,7 +64,6 @@
           Passwords do not match
         </span>
       </div>
-
 
       <button type="submit" class="btn" [disabled]="form.invalid || loading">
         {{ loading ? 'Creating account...' : 'Create account' }}
