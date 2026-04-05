@@ -8,7 +8,7 @@ import { LoginRequest, RegisterRequest, AuthResponse } from '../models/auth';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   // Your Spring Boot base URL
-  private API = 'http://localhost:8080/api/auth';
+  private API = '/api/auth';
 
   constructor(
     private http: HttpClient,

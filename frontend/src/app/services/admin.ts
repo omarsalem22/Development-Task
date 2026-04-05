@@ -6,7 +6,7 @@ import { Destination, CountryApi } from '../models/destination.model';
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
-  private API = 'http://localhost:8080/api/admin';
+  private API = '/api/admin';
 
   constructor(private http: HttpClient) {}
 

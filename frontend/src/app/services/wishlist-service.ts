@@ -5,7 +5,7 @@ import { Destination } from '../models/destination.model';
 
 @Injectable({ providedIn: 'root' })
 export class WishlistService {
-  private API = 'http://localhost:8080/api/wishlist';
+  private API = '/api/wishlist';
 
   constructor(private http: HttpClient) {}
 

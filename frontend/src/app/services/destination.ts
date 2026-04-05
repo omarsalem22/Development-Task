@@ -13,7 +13,7 @@ export interface PageResponse<T> {
 
 @Injectable({ providedIn: 'root' })
 export class DestinationService {
-  private API = 'http://localhost:8080/api/destinations';
+  private API = '/api/destinations';
 
   constructor(private http: HttpClient) {}
 
