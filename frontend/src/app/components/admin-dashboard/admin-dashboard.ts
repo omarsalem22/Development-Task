@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '../../services/admin';
 import { CountryApi, Destination } from '../../models/destination.model';
+import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -27,7 +29,11 @@ export class AdminDashboard implements OnInit {
   fetchError = '';
   successMsg = '';
 
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    private auth: AuthService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.loadSaved();
@@ -128,6 +134,11 @@ export class AdminDashboard implements OnInit {
         setTimeout(() => (this.successMsg = ''), 3000);
       },
     });
+  }
+
+  logout(): void {
+    this.auth.logout();
+    this.router.navigate(['/login']);
   }
 
   get selectedCount(): number {

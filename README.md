@@ -13,6 +13,7 @@ A full-stack travel planning application built with **Spring Boot** and **Angula
 ## Features
 
 ### Admin Dashboard
+
 - Secure login with JWT authentication
 - Fetch 250+ destinations from the [REST Countries API](https://restcountries.com)
 - Add destinations individually or bulk-add selected countries
@@ -20,6 +21,7 @@ A full-stack travel planning application built with **Spring Boot** and **Angula
 - View all saved destinations with full details
 
 ### User Dashboard
+
 - Secure login with JWT authentication
 - Browse all approved destinations in a paginated card grid
 - Real-time search with debounce (300ms)
@@ -27,6 +29,7 @@ A full-stack travel planning application built with **Spring Boot** and **Angula
 - Mark destinations as "Want to Visit" (wishlist toggle)
 
 ### Auth System
+
 - Register with username, email, and password
 - Login returns JWT token with role
 - First registered user is automatically assigned ADMIN role
@@ -38,33 +41,36 @@ A full-stack travel planning application built with **Spring Boot** and **Angula
 ## Tech Stack
 
 ### Backend
-| Technology | Purpose |
-|---|---|
-| Java 17 | Language |
-| Spring Boot 3 | Framework |
-| Spring Security + JWT | Authentication & Authorization |
-| Spring Data JPA + Hibernate | ORM & Database access |
-| PostgreSQL | Database |
-| JDBC Template | Bulk insert performance |
-| REST Countries API | External destination data |
-| Maven | Build tool |
+
+| Technology                  | Purpose                        |
+| --------------------------- | ------------------------------ |
+| Java 17                     | Language                       |
+| Spring Boot 3               | Framework                      |
+| Spring Security + JWT       | Authentication & Authorization |
+| Spring Data JPA + Hibernate | ORM & Database access          |
+| PostgreSQL                  | Database                       |
+| JDBC Template               | Bulk insert performance        |
+| REST Countries API          | External destination data      |
+| Maven                       | Build tool                     |
 
 ### Frontend
-| Technology | Purpose |
-|---|---|
-| Angular 17+ | Framework |
-| TypeScript | Language |
-| Reactive Forms | Form handling & validation |
-| RxJS | Async data streams & debounce |
-| Angular Router | Navigation & route guards |
-| SCSS | Styling |
+
+| Technology     | Purpose                       |
+| -------------- | ----------------------------- |
+| Angular 17+    | Framework                     |
+| TypeScript     | Language                      |
+| Reactive Forms | Form handling & validation    |
+| RxJS           | Async data streams & debounce |
+| Angular Router | Navigation & route guards     |
+| SCSS           | Styling                       |
 
 ### DevOps
-| Technology | Purpose |
-|---|---|
-| Docker | Containerization |
-| Docker Compose | Multi-container orchestration |
-| Nginx | Frontend server & reverse proxy |
+
+| Technology     | Purpose                         |
+| -------------- | ------------------------------- |
+| Docker         | Containerization                |
+| Docker Compose | Multi-container orchestration   |
+| Nginx          | Frontend server & reverse proxy |
 
 ---
 
@@ -139,31 +145,35 @@ travel-destination-planner/
 ## API Endpoints
 
 ### Auth — `/api/auth`
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| POST | `/api/auth/register` | Public | Register new user |
-| POST | `/api/auth/login` | Public | Login and receive JWT |
+
+| Method | Endpoint             | Access | Description           |
+| ------ | -------------------- | ------ | --------------------- |
+| POST   | `/api/auth/register` | Public | Register new user     |
+| POST   | `/api/auth/login`    | Public | Login and receive JWT |
 
 ### Destinations — `/api/destinations`
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| GET | `/api/destinations?page=0&size=10&search=` | User | Paginated destination list |
-| GET | `/api/destinations/{id}` | User | Single destination |
+
+| Method | Endpoint                                   | Access | Description                |
+| ------ | ------------------------------------------ | ------ | -------------------------- |
+| GET    | `/api/destinations?page=0&size=10&search=` | User   | Paginated destination list |
+| GET    | `/api/destinations/{id}`                   | User   | Single destination         |
 
 ### Admin — `/api/admin`
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| GET | `/api/admin/fetch` | Admin | Fetch from REST Countries API |
-| GET | `/api/admin/destinations` | Admin | Get all saved destinations |
-| POST | `/api/admin/destinations` | Admin | Add single destination |
-| POST | `/api/admin/destinations/bulk` | Admin | Bulk add destinations |
-| DELETE | `/api/admin/destinations/{id}` | Admin | Remove destination |
+
+| Method | Endpoint                       | Access | Description                   |
+| ------ | ------------------------------ | ------ | ----------------------------- |
+| GET    | `/api/admin/fetch`             | Admin  | Fetch from REST Countries API |
+| GET    | `/api/admin/destinations`      | Admin  | Get all saved destinations    |
+| POST   | `/api/admin/destinations`      | Admin  | Add single destination        |
+| POST   | `/api/admin/destinations/bulk` | Admin  | Bulk add destinations         |
+| DELETE | `/api/admin/destinations/{id}` | Admin  | Remove destination            |
 
 ### Wishlist — `/api/wishlist`
-| Method | Endpoint | Access | Description |
-|---|---|---|---|
-| GET | `/api/wishlist` | User | Get user's wishlist |
-| POST | `/api/wishlist/{destinationId}` | User | Toggle wishlist |
+
+| Method | Endpoint                        | Access | Description         |
+| ------ | ------------------------------- | ------ | ------------------- |
+| GET    | `/api/wishlist`                 | User   | Get user's wishlist |
+| POST   | `/api/wishlist/{destinationId}` | User   | Toggle wishlist     |
 
 ---
 
@@ -206,7 +216,7 @@ wishlist
 
 ---
 
-### Option A — Run with Docker (recommended)
+### ORun with Docker
 
 ```bash
 # 1. Clone the repository
@@ -222,6 +232,7 @@ docker-compose up --build
 ```
 
 To stop:
+
 ```bash
 docker-compose down
 
@@ -230,27 +241,6 @@ docker-compose down -v
 ```
 
 ---
-
-### Option B — Run locally without Docker
-
-#### Backend
-
-```bash
-cd backend
-
-# 1. Create PostgreSQL database
-psql -U postgres -c "CREATE DATABASE travel_db;"
-
-# 2. Update src/main/resources/application.yml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/travel_db
-    username: postgres
-    password: yourpassword
-
-# 3. Run the application
-mvn spring-boot:run
-```
 
 #### Frontend
 
@@ -270,13 +260,13 @@ ng serve
 
 ## Environment Variables
 
-| Variable | Default | Description |
-|---|---|---|
-| `SPRING_DATASOURCE_URL` | `jdbc:postgresql://localhost:5432/travel_db` | Database URL |
-| `SPRING_DATASOURCE_USERNAME` | `postgres` | DB username |
-| `SPRING_DATASOURCE_PASSWORD` | `postgres` | DB password |
-| `APP_JWT_SECRET` | — | JWT signing secret (min 256-bit) |
-| `APP_JWT_EXPIRATION` | `86400000` | Token expiry in ms (24h) |
+| Variable                     | Default                                      | Description                      |
+| ---------------------------- | -------------------------------------------- | -------------------------------- |
+| `SPRING_DATASOURCE_URL`      | `jdbc:postgresql://localhost:5432/travel_db` | Database URL                     |
+| `SPRING_DATASOURCE_USERNAME` | `postgres`                                   | DB username                      |
+| `SPRING_DATASOURCE_PASSWORD` | `postgres`                                   | DB password                      |
+| `APP_JWT_SECRET`             | —                                            | JWT signing secret (min 256-bit) |
+| `APP_JWT_EXPIRATION`         | `86400000`                                   | Token expiry in ms (24h)         |
 
 ---
 
@@ -284,8 +274,8 @@ ng serve
 
 The application seeds default accounts on startup:
 
-| Role | Email | Password |
-|---|---|---|
+| Role  | Email              | Password   |
+| ----- | ------------------ | ---------- |
 | Admin | `admin@travel.com` | `admin123` |
 
 > The first user registered via the API also gets ADMIN role automatically.
@@ -295,12 +285,15 @@ The application seeds default accounts on startup:
 ## Screenshots
 
 ### Login
+
 ![Login page with email and password fields]
 
 ### Admin Dashboard
+
 ![Admin dashboard with fetch from API, bulk-add, and saved destinations table]
 
 ### User Dashboard
+
 ![Destination cards grid with flag images, details, and wishlist hearts]
 
 ---
@@ -324,7 +317,7 @@ This processes destinations in batches of 50, significantly faster than individu
 
 - Passwords are hashed with **BCrypt**
 - JWT tokens expire after **24 hours**
-- All `/api/admin/**` routes require `ROLE_ADMIN`
+- All `/api/admin/**` routes require `ADMIN`
 - All `/api/destinations/**` and `/api/wishlist/**` routes require authentication
 - CORS is configured to allow only `http://localhost:4200`
 - Spring Security stateless session — no cookies
@@ -340,4 +333,4 @@ This project was built as a technical assessment task.
 ## Author
 
 **Omar Mohamed Ali**  
-[LinkedIn](https://www.linkedin.com/in/omar-salem) · [GitHub](https://github.com/omarsalem22)
+[LinkedIn](https://www.linkedin.com/in/omar-salem-b17a4a213/) · [GitHub](https://github.com/omarsalem22)

@@ -1,8 +1,15 @@
 <div class="admin-wrap">
-  <header class="admin-header">
-    <h1>Admin dashboard</h1>
-    <span class="badge">Travel Planner</span>
-  </header>
+  <!-- navbar -->
+  <nav class="admin-nav">
+    <div class="nav-left">
+      <h1>Admin dashboard</h1>
+      <span class="badge">Travel Planner</span>
+    </div>
+    <div class="nav-right">
+      <span class="admin-label">Admin</span>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </nav>
 
   <!-- success message -->
   <div class="success-banner" *ngIf="successMsg">{{ successMsg }}</div>

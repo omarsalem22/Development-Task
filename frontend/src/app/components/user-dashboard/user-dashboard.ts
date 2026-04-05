@@ -95,7 +95,7 @@ export class UserDashboard implements OnInit {
     return this.wishlistIds.has(id);
   }
 
-  // pagination
+
   goToPage(page: number): void {
     if (page < 0 || page >= this.totalPages) return;
     this.currentPage = page;

@@ -119,3 +119,47 @@ table {
 }
 
 .empty { font-size: 13px; color: #999; text-align: center; padding: 2rem 0; }
+.admin-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-bottom: 0.5px solid #e0e0e0;
+  padding: 0 1.5rem;
+  height: 56px;
+  margin-bottom: 1.5rem;
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    h1 { font-size: 18px; font-weight: 500; margin: 0; }
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+.admin-label {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  background: #E6F1FB;
+  color: #0C447C;
+  border-radius: 20px;
+}
+
+.logout-btn {
+  padding: 6px 14px;
+  border: 0.5px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  font-size: 13px;
+  cursor: pointer;
+  color: #A32D2D;
+  border-color: #F09595;
+  &:hover { background: #FCEBEB; }
+}

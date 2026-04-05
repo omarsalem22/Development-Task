@@ -1,10 +1,9 @@
 # backend/.dockerignore
 target/
 .mvn/
-*.md
+
 
 # frontend/.dockerignore
 node_modules/
 dist/
 .angular/
-*.md
