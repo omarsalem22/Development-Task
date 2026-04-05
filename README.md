@@ -240,23 +240,7 @@ docker-compose down
 docker-compose down -v
 ```
 
----
 
-#### Frontend
-
-```bash
-cd frontend
-
-# 1. Install dependencies
-npm install
-
-# 2. Start dev server
-ng serve
-
-# App runs at http://localhost:4200
-```
-
----
 
 ## Environment Variables
 
@@ -276,7 +260,7 @@ The application seeds default accounts on startup:
 
 | Role  | Email              | Password   |
 | ----- | ------------------ | ---------- |
-| Admin | `admin@travel.com` | `admin123` |
+| Admin | `omar@salem.com` | `123456789` |
 
 > The first user registered via the API also gets ADMIN role automatically.
 
@@ -320,7 +304,7 @@ This processes destinations in batches of 50, significantly faster than individu
 - All `/api/admin/**` routes require `ADMIN`
 - All `/api/destinations/**` and `/api/wishlist/**` routes require authentication
 - CORS is configured to allow only `http://localhost:4200`
-- Spring Security stateless session — no cookies
+
 
 ---
 

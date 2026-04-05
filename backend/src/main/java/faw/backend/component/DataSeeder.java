@@ -17,14 +17,14 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (userRepository.findByEmail("admin@travel.com").isEmpty()) {
+        if (userRepository.findByEmail("omar@salem.com").isEmpty()) {
             User admin = new User();
             admin.setUsername("admin");
-            admin.setEmail("admin@travel.com");
+            admin.setEmail("omar@salem.com");
             admin.setPassword(passwordEncoder.encode("123456789"));
             admin.setRole(Role.ADMIN);
             userRepository.save(admin);
-            System.out.println("Default admin created: admin@travel.com / 123456789");
+            System.out.println("Default admin created: omar@salem.com / 123456789");
         }
     }
 }
