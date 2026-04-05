@@ -22,6 +22,31 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
 
 
+
+
+// here i make first user is the admin but it's not good way
+
+//    public String register(RegisterRequestDto req) {
+//        if (userRepository.findByEmail(req.getEmail()).isPresent()) {
+//            throw new RuntimeException("Email already taken");
+//        }
+//
+//        User user = new User();
+//        user.setUsername(req.getUsername());
+//        user.setEmail(req.getEmail());
+//        user.setPassword(passwordEncoder.encode(req.getPassword()));
+//
+//  // fist one is admin and enyone else i normal user
+//        if (userRepository.count() == 0) {
+//            user.setRole(Role.ADMIN);
+//        } else {
+//            user.setRole(Role.USER);
+//        }
+//
+//        userRepository.save(user);
+//        return "user registered successfully";
+//    }
+
     public String register(RegisterRequestDto req) {
         if (userRepository.findByEmail(req.getEmail()).isPresent()) {
             throw new RuntimeException("Email already taken");
@@ -31,13 +56,7 @@ public class UserService {
         user.setUsername(req.getUsername());
         user.setEmail(req.getEmail());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
-
-  // fist one is admin and enyone else i normal user
-        if (userRepository.count() == 0) {
-            user.setRole(Role.ADMIN);
-        } else {
-            user.setRole(Role.USER);
-        }
+        user.setRole(Role.USER);  // always USER, admin created by seeder
 
         userRepository.save(user);
         return "user registered successfully";
