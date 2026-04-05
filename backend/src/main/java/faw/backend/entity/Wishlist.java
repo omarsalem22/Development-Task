@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "destination_id"})) // to make sure that evry one custmer have 1 destenatoin
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "destination_id"}))
 public class Wishlist {
 
     @Id
@@ -23,5 +23,5 @@ public class Wishlist {
     private User user;
     @ManyToOne @JoinColumn(name = "destination_id")
     private Destination destination;
-    private LocalDateTime createdAt = LocalDateTime.now();
+
 }

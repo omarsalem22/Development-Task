@@ -1,0 +1,96 @@
+<div class="dash-wrap">
+  <!-- navbar -->
+  <nav class="navbar">
+    <span class="brand">Travel Planner</span>
+    <div class="nav-right">
+      <span class="welcome">Hello, {{ username }}</span>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="content">
+    <!-- search bar -->
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Search destinations..."
+        [ngModel]="searchQuery"
+        (ngModelChange)="onSearch($event)"
+      />
+      <span class="results-count" *ngIf="!loading"> {{ totalItems }} destinations found </span>
+    </div>
+
+    <!-- loading -->
+    <div class="loading" *ngIf="loading">Loading destinations...</div>
+
+    <!-- empty state -->
+    <div class="empty" *ngIf="!loading && destinations.length === 0">No destinations found</div>
+
+    <!-- destination cards grid -->
+    <div class="cards-grid" *ngIf="!loading && destinations.length > 0">
+      <div class="dest-card" *ngFor="let d of destinations">
+        <!-- flag -->
+        <div class="flag-wrap">
+          <img [src]="d.flagUrl" [alt]="d.name" loading="lazy" />
+        </div>
+
+        <!-- info -->
+        <div class="card-body">
+          <div class="card-top">
+            <h3>{{ d.name }}</h3>
+            <!-- wishlist heart button -->
+            <button
+              class="heart-btn"
+              [class.wishlisted]="isWishlisted(d.id)"
+              (click)="toggleWishlist(d)"
+              [title]="isWishlisted(d.id) ? 'Remove from wishlist' : 'Add to wishlist'"
+            >
+              {{ isWishlisted(d.id) ? '♥' : '♡' }}
+            </button>
+          </div>
+
+          <div class="info-row">
+            <span class="label">Capital</span>
+            <span>{{ d.capital }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Region</span>
+            <span>{{ d.region }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Population</span>
+            <span>{{ formatPopulation(d.population) }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Currency</span>
+            <span>{{ d.currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button class="page-btn" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">
+        &laquo; Prev
+      </button>
+
+      <button
+        *ngFor="let p of pages"
+        class="page-btn"
+        [class.active]="p === currentPage"
+        (click)="goToPage(p)"
+      >
+        {{ p + 1 }}
+      </button>
+
+      <button
+        class="page-btn"
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage === totalPages - 1"
+      >
+        Next &raquo;
+      </button>
+    </div>
+  </div>
+</div>
