@@ -20,9 +20,8 @@ export class UserDashboard implements OnInit {
   destinations: Destination[] = [];
   wishlistIds: Set<number> = new Set();
 
-  // pagination
   currentPage = 0;
-  pageSize = 10;
+  pageSize = 5;
   totalPages = 0;
   totalItems = 0;
 
@@ -30,7 +29,6 @@ export class UserDashboard implements OnInit {
   searchQuery = '';
   private searchSubject = new Subject<string>();
 
-  // ui state
   loading = false;
   username = '';
 
@@ -95,7 +93,6 @@ export class UserDashboard implements OnInit {
     return this.wishlistIds.has(id);
   }
 
-
   goToPage(page: number): void {
     if (page < 0 || page >= this.totalPages) return;
     this.currentPage = page;
@@ -107,6 +104,7 @@ export class UserDashboard implements OnInit {
   }
 
   formatPopulation(pop: number): string {
+    // to avode lage nabmers
     if (pop >= 1_000_000) return (pop / 1_000_000).toFixed(1) + 'M';
     if (pop >= 1_000) return (pop / 1_000).toFixed(0) + 'K';
     return pop.toString();

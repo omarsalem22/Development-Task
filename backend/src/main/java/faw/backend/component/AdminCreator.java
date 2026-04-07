@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class DataSeeder implements CommandLineRunner {
+public class AdminCreator implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
+// create admin when run the project
     @Override
     public void run(String... args) {
         if (userRepository.findByEmail("omar@salem.com").isEmpty()) {

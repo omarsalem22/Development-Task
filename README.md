@@ -8,6 +8,16 @@ A full-stack travel planning application built with **Spring Boot** and **Angula
 
 > Run locally using Docker — see [Getting Started](#getting-started)
 
+## Default Accounts
+
+The application seeds default accounts on startup:
+
+| Role  | Email            | Password    |
+| ----- | ---------------- | ----------- |
+| Admin | `omar@salem.com` | `123456789` |
+
+> The first user registered via the API also gets ADMIN role automatically. 
+
 ---
 
 ## Features
@@ -212,7 +222,7 @@ wishlist
 ### Prerequisites
 
 - [Docker](https://www.docker.com/get-started) & Docker Compose
-- OR: Java 17+, Node.js 18+, PostgreSQL 15+
+- OR: Java 21+, Node.js 18+, PostgreSQL 15+
 
 ---
 
@@ -240,8 +250,6 @@ docker-compose down
 docker-compose down -v
 ```
 
-
-
 ## Environment Variables
 
 | Variable                     | Default                                      | Description                      |
@@ -253,16 +261,6 @@ docker-compose down -v
 | `APP_JWT_EXPIRATION`         | `86400000`                                   | Token expiry in ms (24h)         |
 
 ---
-
-## Default Accounts
-
-The application seeds default accounts on startup:
-
-| Role  | Email              | Password   |
-| ----- | ------------------ | ---------- |
-| Admin | `omar@salem.com` | `123456789` |
-
-> The first user registered via the API also gets ADMIN role automatically.
 
 ---
 
@@ -304,7 +302,6 @@ This processes destinations in batches of 50, significantly faster than individu
 - All `/api/admin/**` routes require `ADMIN`
 - All `/api/destinations/**` and `/api/wishlist/**` routes require authentication
 - CORS is configured to allow only `http://localhost:4200`
-
 
 ---
 
