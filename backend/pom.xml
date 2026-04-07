@@ -82,6 +82,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+<!--Testing-->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- JJWT Jackson for JSON processing - runtime only -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
