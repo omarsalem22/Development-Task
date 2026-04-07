@@ -14,10 +14,10 @@ public class AdminCreator implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-// create admin when run the project
+// create admin when run the project if its has no admins
     @Override
     public void run(String... args) {
-        if (userRepository.findByEmail("omar@salem.com").isEmpty()) {
+        if (!userRepository.existsByRole(Role.ADMIN)) {
             User admin = new User();
             admin.setUsername("admin");
             admin.setEmail("omar@salem.com");

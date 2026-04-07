@@ -16,7 +16,7 @@ The application seeds default accounts on startup:
 | ----- | ---------------- | ----------- |
 | Admin | `omar@salem.com` | `123456789` |
 
-> The first user registered via the API also gets ADMIN role automatically. 
+> The first user registered via the API also gets ADMIN role automatically.
 
 ---
 
@@ -222,9 +222,6 @@ wishlist
 ### Prerequisites
 
 - [Docker](https://www.docker.com/get-started) & Docker Compose
-- OR: Java 21+, Node.js 18+, PostgreSQL 15+
-
----
 
 ### ORun with Docker
 
@@ -233,11 +230,12 @@ wishlist
 git clone https://github.com/omarsalem22/Development-Task.git
 cd Development-Task
 
-# 2. Build and start all services
+# 2. Run this
 docker-compose up --build
 
 # 3. Open the app
-# Frontend → http://localhost:4200
+# Frontend → http://localhost:4200  - > this will take you to login page
+# you can sign as admin how is eamil `omar@salem.com`  , password 123456789
 # Backend  → http://localhost:8080
 ```
 

@@ -32,6 +32,7 @@ public class AdminService {
 
     // bulk save — uses JdbcTemplate for performance
     public int bulkAdd(List<DestinationDTO> dtos) {
+        // i use nateive qyury
         String sql = """
             INSERT INTO destinations
               (name, capital, region, population, currency, flag_url, country_code, status)
