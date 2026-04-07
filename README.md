@@ -264,6 +264,8 @@ docker-compose down -v
 
 ## Screenshots
 
+![Ci](images/ci.png)
+
 ### Login
 
 ![Login page with email and password fields]

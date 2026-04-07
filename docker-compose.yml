@@ -31,7 +31,7 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123456789
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      APP_JWT_SECRET: CFlrMMoGpaR8qKtYTLvrHoRRhO583ZZwhrbr4gB7Bds=
+      APP_JWT_SECRET: CFlrMMoGpaR8qKtYTLvrHoRRhO583ZZwhrbr4gB7Bds= # this shoud be in env in production level
       APP_JWT_EXPIRATION: 86400000
     depends_on:
       postgres:
