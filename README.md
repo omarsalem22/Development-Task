@@ -4,9 +4,30 @@ A full-stack travel planning application built with **Spring Boot** and **Angula
 
 ---
 
-## Live Demo
+### Prerequisites
 
-> Run locally using Docker — see [Getting Started](#getting-started)
+Docker & Docker Compose
+
+### Run with Docker
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/omarsalem22/Development-Task.git
+cd Development-Task
+
+# 2. Run this
+docker-compose up --build
+
+# 3. Open the app
+# Frontend → http://localhost:4200  - > this will take you to login page
+# you can sign as admin how is eamil `omar@salem.com`  , password 123456789
+# Backend  → http://localhost:8080
+```
+
+To stop:
+
+```bash
+docker-compose down
 
 ## Default Accounts
 
@@ -34,7 +55,7 @@ The application seeds default accounts on startup:
 
 - Secure login with JWT authentication
 - Browse all approved destinations in a paginated card grid
-- Real-time search with debounce (300ms)
+- Real-time search
 - View destination details: country, capital, region, population, currency, flag
 - Mark destinations as "Want to Visit" (wishlist toggle)
 
@@ -47,6 +68,12 @@ The application seeds default accounts on startup:
 - Route guards protect admin and user dashboards
 
 ---
+
+
+## Continus integration
+
+![Ci](images/ci.png)
+
 
 ## Tech Stack
 
@@ -87,67 +114,69 @@ The application seeds default accounts on startup:
 ## Project Structure
 
 ```
+
 travel-destination-planner/
 ├── backend/
-│   ├── src/main/java/faw/backend/
-│   │   ├── config/
-│   │   │   ├── SecurityConfig.java
-│   │   │   ├── JwtAuthenticationFilter.java
-│   │   │   └── ApplicationConfig.java
-│   │   ├── controller/
-│   │   │   ├── AuthController.java
-│   │   │   ├── AdminController.java
-│   │   │   ├── DestinationController.java
-│   │   │   └── WishlistController.java
-│   │   ├── service/
-│   │   │   ├── AuthService.java
-│   │   │   ├── AdminService.java
-│   │   │   ├── DestinationService.java
-│   │   │   ├── WishlistService.java
-│   │   │   └── RestCountriesService.java
-│   │   ├── entity/
-│   │   │   ├── User.java
-│   │   │   ├── Destination.java
-│   │   │   └── Wishlist.java
-│   │   ├── repository/
-│   │   │   ├── UserRepository.java
-│   │   │   ├── DestinationRepository.java
-│   │   │   └── WishlistRepository.java
-│   │   └── dto/
-│   │       ├── DestinationDTO.java
-│   │       ├── LoginRequest.java
-│   │       ├── LoginResponse.java
-│   │       └── RegisterRequest.java
-│   ├── Dockerfile
-│   └── pom.xml
+│ ├── src/main/java/faw/backend/
+│ │ ├── config/
+│ │ │ ├── SecurityConfig.java
+│ │ │ ├── JwtAuthenticationFilter.java
+│ │ │ └── ApplicationConfig.java
+│ │ ├── controller/
+│ │ │ ├── AuthController.java
+│ │ │ ├── AdminController.java
+│ │ │ ├── DestinationController.java
+│ │ │ └── WishlistController.java
+│ │ ├── service/
+│ │ │ ├── AuthService.java
+│ │ │ ├── AdminService.java
+│ │ │ ├── DestinationService.java
+│ │ │ ├── WishlistService.java
+│ │ │ └── RestCountriesService.java
+│ │ ├── entity/
+│ │ │ ├── User.java
+│ │ │ ├── Destination.java
+│ │ │ └── Wishlist.java
+│ │ ├── repository/
+│ │ │ ├── UserRepository.java
+│ │ │ ├── DestinationRepository.java
+│ │ │ └── WishlistRepository.java
+│ │ └── dto/
+│ │ ├── DestinationDTO.java
+│ │ ├── LoginRequest.java
+│ │ ├── LoginResponse.java
+│ │ └── RegisterRequest.java
+│ ├── Dockerfile
+│ └── pom.xml
 │
 ├── frontend/
-│   ├── src/app/
-│   │   ├── auth/
-│   │   │   ├── login/
-│   │   │   └── register/
-│   │   ├── admin/
-│   │   │   └── dashboard/
-│   │   ├── user/
-│   │   │   └── dashboard/
-│   │   ├── services/
-│   │   │   ├── auth-service.ts
-│   │   │   ├── admin.service.ts
-│   │   │   ├── destination.service.ts
-│   │   │   └── wishlist.service.ts
-│   │   ├── models/
-│   │   │   ├── auth.ts
-│   │   │   └── destination.model.ts
-│   │   ├── guards/
-│   │   │   └── auth-guard.ts
-│   │   ├── interceptors/
-│   │   │   └── auth-interceptor.ts
-│   │   ├── app.routes.ts
-│   │   └── app.config.ts
-│   ├── nginx.conf
-│   └── Dockerfile
+│ ├── src/app/
+│ │ ├── auth/
+│ │ │ ├── login/
+│ │ │ └── register/
+│ │ ├── admin/
+│ │ │ └── dashboard/
+│ │ ├── user/
+│ │ │ └── dashboard/
+│ │ ├── services/
+│ │ │ ├── auth-service.ts
+│ │ │ ├── admin.service.ts
+│ │ │ ├── destination.service.ts
+│ │ │ └── wishlist.service.ts
+│ │ ├── models/
+│ │ │ ├── auth.ts
+│ │ │ └── destination.model.ts
+│ │ ├── guards/
+│ │ │ └── auth-guard.ts
+│ │ ├── interceptors/
+│ │ │ └── auth-interceptor.ts
+│ │ ├── app.routes.ts
+│ │ └── app.config.ts
+│ ├── nginx.conf
+│ └── Dockerfile
 │
 └── docker-compose.yml
+
 ```
 
 ---
@@ -190,6 +219,7 @@ travel-destination-planner/
 ## Database Schema
 
 ```
+
 users
 ├── id (PK)
 ├── username (unique)
@@ -213,36 +243,12 @@ wishlist
 ├── user_id (FK → users)
 ├── destination_id (FK → destinations)
 └── created_at
+
 ```
 
 ---
 
-## Getting Started
 
-### Prerequisites
-
-- [Docker](https://www.docker.com/get-started) & Docker Compose
-
-### ORun with Docker
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/omarsalem22/Development-Task.git
-cd Development-Task
-
-# 2. Run this
-docker-compose up --build
-
-# 3. Open the app
-# Frontend → http://localhost:4200  - > this will take you to login page
-# you can sign as admin how is eamil `omar@salem.com`  , password 123456789
-# Backend  → http://localhost:8080
-```
-
-To stop:
-
-```bash
-docker-compose down
 
 # stop and remove database volume
 docker-compose down -v
@@ -261,10 +267,6 @@ docker-compose down -v
 ---
 
 ---
-
-## Screenshots
-
-![Ci](images/ci.png)
 
 ### Login
 
@@ -302,14 +304,6 @@ This processes destinations in batches of 50, significantly faster than individu
 - All `/api/admin/**` routes require `ADMIN`
 - All `/api/destinations/**` and `/api/wishlist/**` routes require authentication
 - CORS is configured to allow only `http://localhost:4200`
-
----
-
-## License
-
-This project was built as a technical assessment task.
-
----
 
 ## Author
 

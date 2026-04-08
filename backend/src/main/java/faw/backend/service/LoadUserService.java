@@ -1,6 +1,6 @@
 package faw.backend.service;
 
-import faw.backend.component.CustomUserDetails;
+import faw.backend.config.ApplicationConfig;
 import faw.backend.entity.User;
 import faw.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class LoadUserService  implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole().name());
         List<GrantedAuthority> authorities = List.of(authority);
-        CustomUserDetails userDetails = CustomUserDetails.builder()
+        ApplicationConfig.CustomUserDetails userDetails = ApplicationConfig.CustomUserDetails.builder()
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .authorities(authorities)
