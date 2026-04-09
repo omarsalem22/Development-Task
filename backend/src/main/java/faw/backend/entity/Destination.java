@@ -13,7 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "destinations")
+@Table(name = "destinations",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uq_destinations_country_code",
+                columnNames = "country_code"
+        ))
+
 public class Destination {
 
     @Id

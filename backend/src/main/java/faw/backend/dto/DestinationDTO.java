@@ -15,7 +15,7 @@ public class DestinationDTO {
     private Long population;
     private Map<String, CurrencyDTO> currencies;
     private FlagsDTO flags;
-    private String cca2;  // country code e.g. "EG"
+    private String cca2;  // country code
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)

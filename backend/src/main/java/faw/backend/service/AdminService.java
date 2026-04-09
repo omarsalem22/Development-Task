@@ -3,8 +3,10 @@ package faw.backend.service;
 import faw.backend.dto.DestinationDTO;
 import faw.backend.entity.Destination;
 import faw.backend.enums.Status;
+import faw.backend.exceptions.DuplicateDestinationException;
 import faw.backend.repository.DestinationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
@@ -19,15 +21,19 @@ public class AdminService {
     private final RestCountriesService  restCountriesService;
     private final JdbcTemplate          jdbcTemplate;
 
-    // fetch from REST Countries — preview only, does NOT save
+    // fetch from REST Countries — preview only
     public List<DestinationDTO> fetchFromApi() {
         return restCountriesService.fetchAll();
     }
 
-    // save a single destination
     public Destination addOne(DestinationDTO dto) {
-        Destination d = toEntity(dto);
-        return destinationRepository.save(d);
+        try {
+            return destinationRepository.save(toEntity(dto));
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateDestinationException(
+                    "Destination already exists: " + dto.getCca2()
+            );
+        }
     }
 
     // bulk save — uses JdbcTemplate for performance
