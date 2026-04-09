@@ -15,8 +15,11 @@ Docker & Docker Compose
 git clone https://github.com/omarsalem22/Development-Task.git
 cd Development-Task
 
-# 2. Run this
+# 2. Run this  ( od  Docker compose )
 docker-compose up --build
+# or if you use the new dokcer compose
+docker  compose up --build
+
 
 # 3. Open the app
 # Frontend → http://localhost:4200  - > this will take you to login page
