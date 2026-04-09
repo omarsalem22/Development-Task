@@ -9,24 +9,11 @@ export class WishlistService {
 
   constructor(private http: HttpClient) {}
 
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-  }
-
   getWishlist(): Observable<Destination[]> {
-    return this.http.get<Destination[]>(this.API, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get<Destination[]>(this.API);
   }
 
   toggle(destinationId: number): Observable<{ wishlisted: boolean }> {
-    return this.http.post<{ wishlisted: boolean }>(
-      `${this.API}/${destinationId}`,
-      {},
-      { headers: this.getAuthHeaders() },
-    );
+    return this.http.post<{ wishlisted: boolean }>(`${this.API}/${destinationId}`, {});
   }
 }

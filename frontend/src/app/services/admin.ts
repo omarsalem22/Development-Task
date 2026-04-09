@@ -10,50 +10,27 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      throw new Error('No token found! Please login first.');
-    }
-
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-  }
-
   // fetch preview from REST Countries via your backend
   fetchFromApi(): Observable<CountryApi[]> {
-    return this.http.get<CountryApi[]>(`${this.API}/fetch`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get<CountryApi[]>(`${this.API}/fetch`);
   }
 
-  // get destinations already saved in DB
   getSaved(): Observable<Destination[]> {
-    return this.http.get<Destination[]>(`${this.API}/destinations`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get<Destination[]>(`${this.API}/destinations`);
   }
 
   // add single country
   addOne(country: CountryApi): Observable<Destination> {
-    return this.http.post<Destination>(`${this.API}/destinations`, country, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.post<Destination>(`${this.API}/destinations`, country);
   }
 
   // bulk add selected countries
   bulkAdd(countries: CountryApi[]): Observable<{ saved: number }> {
-    return this.http.post<{ saved: number }>(`${this.API}/destinations/bulk`, countries, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.post<{ saved: number }>(`${this.API}/destinations/bulk`, countries, {});
   }
 
   // remove a saved destination
   remove(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.API}/destinations/${id}`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.delete<void>(`${this.API}/destinations/${id}`);
   }
 }
