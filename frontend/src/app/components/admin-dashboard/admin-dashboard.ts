@@ -28,6 +28,7 @@ export class AdminDashboard implements OnInit {
   loadingSaved = false;
   fetchError = '';
   successMsg = '';
+  msgType: 'success' | 'error' = 'success';
 
   constructor(
     private adminService: AdminService,
@@ -78,28 +79,36 @@ export class AdminDashboard implements OnInit {
     this.selectedCountries.clear();
   }
 
-  // 3. add single country
   addOne(country: CountryApi): void {
     this.adminService.addOne(country).subscribe({
       next: () => {
         this.successMsg = `${country.name.common} added successfully`;
+        this.msgType = 'success'; 
         this.loadSaved();
         setTimeout(() => (this.successMsg = ''), 3000);
       },
-      error: (err) => alert(err.error?.message ?? 'Failed to add'),
+      error: () => {
+        this.successMsg = `${country.name.common} is already added`;
+        this.msgType = 'error'; 
+        setTimeout(() => (this.successMsg = ''), 3000);
+      },
     });
   }
 
-  // 4. bulk add selected
   bulkAdd(): void {
     if (this.selectedCountries.size === 0) return;
-
     const selected = Array.from(this.selectedCountries).map((i) => this.apiCountries[i]);
 
     this.loadingBulk = true;
     this.adminService.bulkAdd(selected).subscribe({
       next: (res) => {
-        this.successMsg = `${res.saved} destinations added`;
+        if (res.saved === 0) {
+          this.successMsg = 'All selected destinations are already added';
+          this.msgType = 'error'; 
+        } else {
+          this.successMsg = `${res.saved} destinations added`;
+          this.msgType = 'success';
+        }
         this.loadingBulk = false;
         this.selectedCountries.clear();
         this.loadSaved();
@@ -107,7 +116,9 @@ export class AdminDashboard implements OnInit {
       },
       error: () => {
         this.loadingBulk = false;
-        alert('Bulk add failed');
+        this.successMsg = 'Bulk add failed';
+        this.msgType = 'error'; 
+        setTimeout(() => (this.successMsg = ''), 3000);
       },
     });
   }

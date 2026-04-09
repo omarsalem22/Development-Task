@@ -19,6 +19,9 @@ cd Development-Task
 docker-compose up --build
 # or if you use the new dokcer compose
 docker  compose up --build
+# for detached mode
+docker  compose up --build -d
+
 
 
 # 3. Open the app
@@ -247,15 +250,7 @@ wishlist
 ├── destination_id (FK → destinations)
 └── created_at
 
-```
-
----
-
-
-
-# stop and remove database volume
-docker-compose down -v
-```
+````
 
 ## Environment Variables
 
@@ -294,7 +289,7 @@ jdbcTemplate.batchUpdate(sql, dtos, 50, (ps, dto) -> {
     ps.setString(1, dto.getName().getCommon());
     // ...
 });
-```
+````
 
 This processes destinations in batches of 50, significantly faster than individual inserts for large datasets.
 

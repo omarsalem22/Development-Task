@@ -37,36 +37,79 @@ public class AdminService {
     }
 
     // bulk save — uses JdbcTemplate for performance
-    public int bulkAdd(List<DestinationDTO> dtos) {
-        // i use nateive qyury
-        String sql = """
-            INSERT INTO destinations
-              (name, capital, region, population, currency, flag_url, country_code, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?, 'APPROVED')
-            ON CONFLICT DO NOTHING
-            """;
-
-        int[][] result = jdbcTemplate.batchUpdate(sql, dtos, 50, (ps, dto) -> {
-            ps.setString(1, dto.getName().getCommon());
-            ps.setString(2, dto.getCapital().get(0));
-            ps.setString(3, dto.getRegion());
-            ps.setLong(4,   dto.getPopulation() != null ? dto.getPopulation() : 0L);
-            ps.setString(5, extractCurrency(dto));
-            ps.setString(6, dto.getFlags() != null ? dto.getFlags().getPng() : null);
-            ps.setString(7, dto.getCca2());
-        });
-
-        return Arrays.stream(result)
-                .mapToInt(batch -> Arrays.stream(batch).sum())
-                .sum();
-    }
-
+//    public int bulkAdd(List<DestinationDTO> dtos) {
+//        // i use nateive qyury
+//        String sql = """
+//            INSERT INTO destinations
+//              (name, capital, region, population, currency, flag_url, country_code, status)
+//            VALUES (?, ?, ?, ?, ?, ?, ?, 'APPROVED')
+//            ON CONFLICT DO NOTHING
+//            """;
+//
+//        int[][] result = jdbcTemplate.batchUpdate(sql, dtos, 50, (ps, dto) -> {
+//            ps.setString(1, dto.getName().getCommon());
+//            ps.setString(2, dto.getCapital().get(0));
+//            ps.setString(3, dto.getRegion());
+//            ps.setLong(4,   dto.getPopulation() != null ? dto.getPopulation() : 0L);
+//            ps.setString(5, extractCurrency(dto));
+//            ps.setString(6, dto.getFlags() != null ? dto.getFlags().getPng() : null);
+//            ps.setString(7, dto.getCca2());
+//        });
+//
+//        return Arrays.stream(result)
+//                .mapToInt(batch -> Arrays.stream(batch).sum())
+//                .sum();
+//    }
+//
     public void remove(Long id) {
         destinationRepository.findById(id).ifPresent(d -> {
             d.setStatus(Status.REMOVED);
             destinationRepository.save(d);
         });
     }
+
+
+    public int bulkAdd(List<DestinationDTO> dtos) {
+        String sql = """
+        INSERT INTO destinations
+          (name, capital, region, population, currency, flag_url, country_code, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'APPROVED')
+        ON CONFLICT (country_code) DO NOTHING
+        """;
+
+        try {
+            int[][] result = jdbcTemplate.batchUpdate(sql, dtos, 50, (ps, dto) -> {
+                ps.setString(1, dto.getName().getCommon());
+                ps.setString(2,
+                        dto.getCapital() != null && !dto.getCapital().isEmpty()
+                                ? dto.getCapital().get(0)
+                                : null
+                );
+                ps.setString(3, dto.getRegion());
+                ps.setLong(4,   dto.getPopulation() != null ? dto.getPopulation() : 0L);
+                ps.setString(5, extractCurrency(dto));
+                ps.setString(6, dto.getFlags() != null ? dto.getFlags().getPng() : null);
+                ps.setString(7, dto.getCca2());
+            });
+
+            int inserted = Arrays.stream(result)
+                    .mapToInt(batch -> Arrays.stream(batch)
+                            .filter(r -> r > 0)
+                            .sum())
+                    .sum();
+
+            int skipped = dtos.size() - inserted;  // 👈 how many were duplicates
+            System.out.printf("Inserted: %d | Skipped (duplicates): %d%n", inserted, skipped);
+
+            return inserted;
+
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateDestinationException(
+                    "One or more destinations already exist"
+            );
+        }
+    }
+
 
     // get all saved APPROVED destinations
     public List<Destination> getSaved() {

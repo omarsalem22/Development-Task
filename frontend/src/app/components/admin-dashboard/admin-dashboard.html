@@ -11,8 +11,13 @@
     </div>
   </nav>
 
-  <div class="success-banner" *ngIf="successMsg">{{ successMsg }}</div>
-
+  <div
+    *ngIf="successMsg"
+    [class.success-banner]="msgType === 'success'"
+    [class.error-banner]="msgType === 'error'"
+  >
+    {{ successMsg }}
+  </div>
   <section class="card">
     <div class="card-header">
       <h2>Fetch from REST Countries</h2>
